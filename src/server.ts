@@ -1,12 +1,14 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 import { experience } from "./experience";
 
 const server = express();
-const port = process.env.PORT ?? 3000;
+const port = process.env.PORT ?? 3003;
 
 server.use(bodyParser.json());
+server.use(cors({ methods: ["GET", "POST"] }));
 
 server.get("/experience", (_, response) => {
   response.status(200).json(experience).send();
@@ -44,3 +46,5 @@ server.use("*", (_, response) => {
 server.listen(port, () => {
   console.info(`Server started at: http://localhost:${port}}`);
 });
+
+module.exports = server;
